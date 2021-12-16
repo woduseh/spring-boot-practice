@@ -25,7 +25,8 @@ public class PostService {
   @Transactional(timeout = 10)
   public Long update(Long id, PostUpdateRequestDto requestDto) {
     Post post = postRepository.findById(id)
-        .orElseThrow(() -> new IllegalArgumentException("ID: " + id + " 인 사용자가 없습니다."));
+        .orElseThrow(
+            () -> new IllegalArgumentException("Update Error - ID: " + id + " 인 게시글이 없습니다."));
     
     post.update(requestDto.getTitle(), requestDto.getContent());
 
@@ -40,7 +41,8 @@ public class PostService {
   @Transactional(timeout = 10)
   public PostResponseDto findById(Long id) {
     Post post = postRepository.findById(id)
-        .orElseThrow(() -> new IllegalArgumentException("ID: " + id + " 인 사용자가 없습니다."));
+        .orElseThrow(
+            () -> new IllegalArgumentException("Select Error - ID: " + id + " 인 게시글이 없습니다."));
 
     return new PostResponseDto(post);
   }

@@ -6,6 +6,7 @@ import com.springboot.web.practice.domain.post.dao.PostRepository;
 import com.springboot.web.practice.domain.post.dto.PostSaveRequestDto;
 import com.springboot.web.practice.domain.post.dto.PostUpdateRequestDto;
 import com.springboot.web.practice.domain.post.entity.Post;
+import java.time.LocalDateTime;
 import java.util.List;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
@@ -98,5 +99,27 @@ public class PostApiTest {
     List<Post> all = postRepository.findAll();
     assertThat(all.get(0).getTitle()).isEqualTo(expectedTitle);
     assertThat(all.get(0).getContent()).isEqualTo(expectedContent);
+  }
+
+  @Test
+  public void checkBaseTimeEntity() {
+    //given
+    LocalDateTime now = LocalDateTime.of(2019, 6, 4, 0, 0, 0);
+    postRepository.save(Post.builder()
+        .title("title")
+        .content("content")
+        .author("author")
+        .build());
+    //when
+    List<Post> postsList = postRepository.findAll();
+
+    //then
+    Post post = postsList.get(0);
+
+    System.out.println(">>>>>>>>> createDate=" + post.getCreatedDate() + ", modifiedDate="
+        + post.getModifiedDate());
+
+    assertThat(post.getCreatedDate()).isAfter(now);
+    assertThat(post.getModifiedDate()).isAfter(now);
   }
 }

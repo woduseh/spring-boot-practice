@@ -1,10 +1,12 @@
 package com.springboot.web.practice.domain.post.entity;
 
+import com.springboot.web.practice.global.common.BaseTimeEntity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,7 +14,8 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @Entity
-public class Post {
+@Table(name = "tb_post")
+public class Post extends BaseTimeEntity {
 
   @Id
   @Column(name = "id", nullable = false)
