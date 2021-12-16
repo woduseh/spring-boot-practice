@@ -1,9 +1,9 @@
 package com.springboot.web.practice.domain.post.api;
 
-import com.springboot.web.practice.domain.post.dto.PostListResponseDto;
-import com.springboot.web.practice.domain.post.dto.PostResponseDto;
-import com.springboot.web.practice.domain.post.dto.PostSaveRequestDto;
-import com.springboot.web.practice.domain.post.dto.PostUpdateRequestDto;
+import com.springboot.web.practice.domain.post.dto.request.PostUpdateRequestDto;
+import com.springboot.web.practice.domain.post.dto.response.PostListResponseDto;
+import com.springboot.web.practice.domain.post.dto.response.PostResponseDto;
+import com.springboot.web.practice.domain.post.dto.response.PostSaveRequestDto;
 import com.springboot.web.practice.domain.post.service.PostService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;

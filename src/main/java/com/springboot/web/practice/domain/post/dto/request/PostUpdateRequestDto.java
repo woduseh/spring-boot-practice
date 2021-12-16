@@ -1,4 +1,4 @@
-package com.springboot.web.practice.domain.post.dto;
+package com.springboot.web.practice.domain.post.dto.request;
 
 import lombok.Builder;
 import lombok.Getter;

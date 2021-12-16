@@ -3,8 +3,8 @@ package com.springboot.web.practice.domain.post.api;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.springboot.web.practice.domain.post.dao.PostRepository;
-import com.springboot.web.practice.domain.post.dto.PostSaveRequestDto;
-import com.springboot.web.practice.domain.post.dto.PostUpdateRequestDto;
+import com.springboot.web.practice.domain.post.dto.request.PostUpdateRequestDto;
+import com.springboot.web.practice.domain.post.dto.response.PostSaveRequestDto;
 import com.springboot.web.practice.domain.post.entity.Post;
 import java.time.LocalDateTime;
 import java.util.List;
