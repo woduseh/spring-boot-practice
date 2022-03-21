@@ -1,4 +1,4 @@
-package com.springboot.web.practice.domain.hello.api;
+package com.springboot.web.practice.domain.hello.controller;
 
 import com.springboot.web.practice.domain.hello.dto.HelloResponseDto;
 import lombok.RequiredArgsConstructor;

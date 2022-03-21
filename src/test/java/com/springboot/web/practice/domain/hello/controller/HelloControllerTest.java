@@ -1,4 +1,4 @@
-package com.springboot.web.practice.domain.hello.api;
+package com.springboot.web.practice.domain.hello.controller;
 
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -18,13 +18,13 @@ import org.springframework.test.web.servlet.MockMvc;
 @MockBean(JpaMetamodelMappingContext.class)
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(controllers = HelloController.class)
-public class HelloControllerTest {
+class HelloControllerTest {
 
   @Autowired
   private MockMvc mvc;
 
   @Test
-  public void helloTest() throws Exception {
+  void helloTest() throws Exception {
     String hello = "hello";
 
     mvc.perform(get("/hello"))
@@ -33,7 +33,7 @@ public class HelloControllerTest {
   }
 
   @Test
-  public void helloDtoTest() throws Exception {
+  void helloDtoTest() throws Exception {
     String name = "hello";
     int amount = 1000;
 

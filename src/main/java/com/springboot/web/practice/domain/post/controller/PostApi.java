@@ -1,4 +1,4 @@
-package com.springboot.web.practice.domain.post.api;
+package com.springboot.web.practice.domain.post.controller;
 
 import com.springboot.web.practice.domain.post.dto.request.PostUpdateRequestDto;
 import com.springboot.web.practice.domain.post.dto.response.PostListResponseDto;

@@ -1,4 +1,4 @@
-package com.springboot.web.practice.domain.post.api;
+package com.springboot.web.practice.domain.post.controller;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -9,6 +9,7 @@ import com.springboot.web.practice.domain.post.entity.Post;
 import java.time.LocalDateTime;
 import java.util.List;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,8 @@ import org.springframework.web.client.RestTemplate;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-public class PostApiTest {
+@DisplayName("Post 관련 API 기능 테스트")
+class PostApiTest {
 
   @LocalServerPort
   private int port;
@@ -44,7 +46,8 @@ public class PostApiTest {
   }
 
   @Test
-  public void savePost() {
+  @DisplayName("Post 저장")
+  void savePost() {
     String title = "title";
     String content = "content";
 
@@ -59,7 +62,7 @@ public class PostApiTest {
     ResponseEntity<Long> responseEntity = restTemplate.postForEntity(url, requestDto, Long.class);
 
     assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
-    assertThat(responseEntity.getBody()).isGreaterThan(0L);
+    assertThat(responseEntity.getBody()).isPositive();
 
     List<Post> all = postRepository.findAll();
     assertThat(all.get(0).getTitle()).isEqualTo(title);
@@ -67,7 +70,8 @@ public class PostApiTest {
   }
 
   @Test
-  public void updatePost() throws Exception {
+  @DisplayName("JPA 영속성 컨텍스트를 이용한 Post 갱신")
+  void updatePost() {
     //given
     Post savedPost = postRepository.save(Post.builder()
         .title("title")
@@ -94,7 +98,7 @@ public class PostApiTest {
 
     //then
     assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
-    assertThat(responseEntity.getBody()).isGreaterThan(0L);
+    assertThat(responseEntity.getBody()).isPositive();
 
     List<Post> all = postRepository.findAll();
     assertThat(all.get(0).getTitle()).isEqualTo(expectedTitle);
@@ -102,7 +106,8 @@ public class PostApiTest {
   }
 
   @Test
-  public void checkBaseTimeEntity() {
+  @DisplayName("Post에서 extend한 BaseTimeEntity가 잘 작동되는지 체크")
+  void checkBaseTimeEntity() {
     //given
     LocalDateTime now = LocalDateTime.of(2019, 6, 4, 0, 0, 0);
     postRepository.save(Post.builder()
