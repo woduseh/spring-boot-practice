@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        springBootVersion = '2.6.1'
+        springBootVersion = '2.6.4'
     }
     repositories {
         mavenCentral()
@@ -25,20 +25,20 @@ repositories {
 
 dependencies {
     /* Spring Boot */
-    implementation('org.springframework.boot:spring-boot-starter-web')
-    testImplementation('org.springframework.boot:spring-boot-starter-test')
+    implementation('org.springframework.boot:spring-boot-starter-web:2.6.4')
+    testImplementation('org.springframework.boot:spring-boot-starter-test:2.6.4')
 
     /* lombok */
-    annotationProcessor("org.projectlombok:lombok")
-    compileOnly("org.projectlombok:lombok")
+    annotationProcessor('org.projectlombok:lombok:1.18.22')
+    compileOnly('org.projectlombok:lombok:1.18.22')
 
     /* Spring Data JPA */
-    implementation('mysql:mysql-connector-java')
-    implementation('org.springframework.boot:spring-boot-starter-data-jpa')
+    implementation('mysql:mysql-connector-java:8.0.28')
+    implementation('org.springframework.boot:spring-boot-starter-data-jpa:2.6.4')
 
     /* Apache HttpClient */
-    implementation('org.apache.httpcomponents:httpclient')
+    implementation('org.apache.httpcomponents:httpclient:4.5.13')
 
     /* Mustache */
-    implementation('org.springframework.boot:spring-boot-starter-mustache')
+    implementation('org.springframework.boot:spring-boot-starter-mustache:2.6.4')
 }
