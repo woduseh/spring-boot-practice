@@ -1,4 +1,4 @@
-package com.springboot.web.practice.domain.index.api;
+package com.springboot.web.practice.domain.index.controller;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
@@ -13,7 +13,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = RANDOM_PORT)
-class IndexApiTest {
+class IndexControllerTest {
 
   @Autowired
   private TestRestTemplate restTemplate;

@@ -2,7 +2,7 @@ package com.springboot.web.practice.domain.post.dao;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-import com.springboot.web.practice.domain.post.entity.Post;
+import com.springboot.web.practice.domain.post.entity.Posts;
 import java.util.List;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
@@ -13,10 +13,10 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-class PostRepositoryTest {
+class PostsRepositoryTest {
 
   @Autowired
-  PostRepository postRepository;
+  PostsRepository postRepository;
 
   @AfterEach
   public void cleanup() {
@@ -29,17 +29,17 @@ class PostRepositoryTest {
     String title = "테스트 게시글";
     String content = "테스트 본문";
 
-    postRepository.save(Post.builder()
+    postRepository.save(Posts.builder()
         .title(title)
         .content(content)
         .author("jojoldu@gmail.com")
         .build());
 
     //when
-    List<Post> postList = postRepository.findAll();
+    List<Posts> postList = postRepository.findAll();
 
     //then
-    Post post = postList.get(0);
+    Posts post = postList.get(0);
     assertThat(post.getTitle()).isEqualTo(title);
     assertThat(post.getContent()).isEqualTo(content);
   }

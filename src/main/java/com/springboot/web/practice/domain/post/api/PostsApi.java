@@ -1,10 +1,10 @@
-package com.springboot.web.practice.domain.post.controller;
+package com.springboot.web.practice.domain.post.api;
 
-import com.springboot.web.practice.domain.post.dto.request.PostUpdateRequestDto;
-import com.springboot.web.practice.domain.post.dto.response.PostListResponseDto;
-import com.springboot.web.practice.domain.post.dto.response.PostResponseDto;
-import com.springboot.web.practice.domain.post.dto.response.PostSaveRequestDto;
-import com.springboot.web.practice.domain.post.service.PostService;
+import com.springboot.web.practice.domain.post.dto.request.PostsUpdateRequestDto;
+import com.springboot.web.practice.domain.post.dto.response.PostsListResponseDto;
+import com.springboot.web.practice.domain.post.dto.response.PostsResponseDto;
+import com.springboot.web.practice.domain.post.dto.response.PostsSaveRequestDto;
+import com.springboot.web.practice.domain.post.service.PostsService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,18 +20,18 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/post")
-public class PostApi {
+@RequestMapping("/api/posts")
+public class PostsApi {
 
-  private final PostService postService;
+  private final PostsService postService;
 
   @PostMapping
-  public Long save(@RequestBody PostSaveRequestDto requestDto) {
+  public Long save(@RequestBody PostsSaveRequestDto requestDto) {
     return postService.save(requestDto);
   }
 
   @PatchMapping("/{id}")
-  public Long update(@PathVariable Long id, @RequestBody PostUpdateRequestDto requestDto) {
+  public Long update(@PathVariable Long id, @RequestBody PostsUpdateRequestDto requestDto) {
     return postService.update(id, requestDto);
   }
 
@@ -42,12 +42,12 @@ public class PostApi {
   }
 
   @GetMapping("/{id}")
-  public PostResponseDto findById(@PathVariable Long id) {
+  public PostsResponseDto findById(@PathVariable Long id) {
     return postService.findById(id);
   }
 
   @GetMapping("list")
-  public List<PostListResponseDto> findAll() {
+  public List<PostsListResponseDto> findAll() {
     return postService.findAllDesc();
   }
 }

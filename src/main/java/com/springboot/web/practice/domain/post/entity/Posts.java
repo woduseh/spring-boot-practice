@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Table(name = "tb_post")
-public class Post extends BaseTimeEntity {
+public class Posts extends BaseTimeEntity {
 
   @Id
   @Column(name = "id", nullable = false)
@@ -32,7 +32,7 @@ public class Post extends BaseTimeEntity {
   private String author;
 
   @Builder
-  public Post(String title, String content, String author) {
+  public Posts(String title, String content, String author) {
     this.title = title;
     this.content = content;
     this.author = author;
