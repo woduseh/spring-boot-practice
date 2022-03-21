@@ -4,10 +4,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;
 
-public class HelloResponseDtoTest {
+class HelloResponseDtoTest {
 
   @Test
-  public void helloResponseDtoTest() {
+  void helloResponseDtoTest() {
     //given
     String name = "test";
     int amount = 1000;

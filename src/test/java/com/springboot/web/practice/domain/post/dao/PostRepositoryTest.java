@@ -13,7 +13,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-public class PostRepositoryTest {
+class PostRepositoryTest {
 
   @Autowired
   PostRepository postRepository;
@@ -24,7 +24,7 @@ public class PostRepositoryTest {
   }
 
   @Test
-  public void saveAndReadPost() {
+  void saveAndReadPost() {
     //given
     String title = "테스트 게시글";
     String content = "테스트 본문";
