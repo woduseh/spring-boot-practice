@@ -36,6 +36,9 @@ dependencies {
     implementation('mysql:mysql-connector-java:8.0.28')
     implementation('org.springframework.boot:spring-boot-starter-data-jpa:2.6.4')
 
+    /* OAuth 2.0 */
+    implementation('org.springframework.boot:spring-boot-starter-oauth2-client:2.6.4')
+
     /* Spring Boot Devtools */
     implementation('org.springframework.boot:spring-boot-devtools:2.6.4')
 

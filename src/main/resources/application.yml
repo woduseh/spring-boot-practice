@@ -13,7 +13,7 @@ spring:
       enabled: true
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: update
     properties:
       hibernate:
         show-sql: true
@@ -24,6 +24,8 @@ spring:
     url: jdbc:mysql://localhost:3306/spring_boot_practice?serverTimezone=UTC&useSSL=false&characterEncoding=utf8&characterSetResults=utf8&rewriteBatchedStatements=true
     username: root
     password: orcl
+  profiles:
+    include: oauth
 
 #spring:
 #  h2:
