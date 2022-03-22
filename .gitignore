@@ -4,3 +4,6 @@
 build
 gradle
 out
+
+# OAuth properties
+application-oauth.yml
