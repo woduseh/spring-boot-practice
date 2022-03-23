@@ -1,5 +1,6 @@
 package com.springboot.web.practice.domain.index.controller;
 
+import com.springboot.web.practice.config.auth.LoginUser;
 import com.springboot.web.practice.config.auth.dto.SessionUser;
 import com.springboot.web.practice.domain.post.dto.response.PostsResponseDto;
 import com.springboot.web.practice.domain.post.service.PostsService;
@@ -21,10 +22,8 @@ public class IndexController {
   private final HttpSession httpSession;
 
   @GetMapping("/")
-  public String index(Model model) {
+  public String index(Model model, @LoginUser SessionUser user) {
     model.addAttribute("posts", postsService.findAllDesc());
-
-    SessionUser user = (SessionUser) httpSession.getAttribute("user");
 
     if (user != null) {
       model.addAttribute("loginUserName", user.getName());

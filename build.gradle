@@ -39,6 +39,9 @@ dependencies {
     /* OAuth 2.0 */
     implementation('org.springframework.boot:spring-boot-starter-oauth2-client:2.6.4')
 
+    /* spring-session-jdbc */
+    implementation('org.springframework.session:spring-session-jdbc')
+
     /* Spring Boot Devtools */
     implementation('org.springframework.boot:spring-boot-devtools:2.6.4')
 

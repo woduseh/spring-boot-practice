@@ -19,12 +19,12 @@ import lombok.Getter;
  * DATE                 AUTHOR                  NOTE
  * -----------------------------------------------------
  * 2022-03-22           JYHwang                 최초 생성
+ * 2022-03-23           JYHwang                 네이버 로그인 추가
  * </pre>
  */
 
 @Getter
 public class OAuthAttributes {
-
   private final Map<String, Object> attributes;
   private final String nameAttributeKey;
   private final String name;
@@ -41,8 +41,12 @@ public class OAuthAttributes {
     this.picture = picture;
   }
 
-  public static OAuthAttributes of(String userNameAttributeName,
+  public static OAuthAttributes of(String registrationId, String userNameAttributeName,
       Map<String, Object> attributes) {
+    if ("naver".equals(registrationId)) {
+      return ofNaver("id", attributes);
+    }
+
     return ofGoogle(userNameAttributeName, attributes);
   }
 
@@ -53,6 +57,19 @@ public class OAuthAttributes {
         .email((String) attributes.get("email"))
         .picture((String) attributes.get("picture"))
         .attributes(attributes)
+        .nameAttributeKey(userNameAttributeName)
+        .build();
+  }
+
+  private static OAuthAttributes ofNaver(String userNameAttributeName,
+      Map<String, Object> attributes) {
+    Map<String, Object> response = (Map<String, Object>) attributes.get("response");
+
+    return OAuthAttributes.builder()
+        .name((String) response.get("name"))
+        .email((String) response.get("email"))
+        .picture((String) response.get("profile_image"))
+        .attributes(response)
         .nameAttributeKey(userNameAttributeName)
         .build();
   }
