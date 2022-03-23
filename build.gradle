@@ -28,6 +28,10 @@ dependencies {
     implementation('org.springframework.boot:spring-boot-starter-web:2.6.4')
     testImplementation('org.springframework.boot:spring-boot-starter-test:2.6.4')
 
+    /* H2 DB */
+    implementation('com.h2database:h2:2.1.210')
+    implementation('org.springframework.boot:spring-boot-starter-jdbc:2.6.4')
+
     /* lombok */
     annotationProcessor('org.projectlombok:lombok:1.18.22')
     compileOnly('org.projectlombok:lombok:1.18.22')
@@ -40,10 +44,13 @@ dependencies {
     implementation('org.springframework.boot:spring-boot-starter-oauth2-client:2.6.4')
 
     /* spring-session-jdbc */
-    implementation('org.springframework.session:spring-session-jdbc')
+    implementation('org.springframework.session:spring-session-jdbc:2.6.2')
 
     /* Spring Boot Devtools */
     implementation('org.springframework.boot:spring-boot-devtools:2.6.4')
+
+    /* Spring Security Test */
+    testImplementation('org.springframework.security:spring-security-test:5.6.2')
 
     /* Apache HttpClient */
     implementation('org.apache.httpcomponents:httpclient:4.5.13')

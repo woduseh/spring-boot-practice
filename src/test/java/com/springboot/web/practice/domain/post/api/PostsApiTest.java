@@ -1,7 +1,12 @@
 package com.springboot.web.practice.domain.post.api;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.springboot.web.practice.domain.post.dao.PostsRepository;
 import com.springboot.web.practice.domain.post.dto.request.PostsUpdateRequestDto;
 import com.springboot.web.practice.domain.post.dto.response.PostsSaveRequestDto;
@@ -9,6 +14,7 @@ import com.springboot.web.practice.domain.post.entity.Posts;
 import java.time.LocalDateTime;
 import java.util.List;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,14 +22,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.web.server.LocalServerPort;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.http.client.ClientHttpRequestFactory;
-import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
@@ -33,12 +37,21 @@ class PostsApiTest {
   @LocalServerPort
   private int port;
 
-  ClientHttpRequestFactory httpRequestFactory = new HttpComponentsClientHttpRequestFactory();
-
-  RestTemplate restTemplate = new RestTemplate(httpRequestFactory);
-
   @Autowired
   private PostsRepository postRepository;
+
+  @Autowired
+  private WebApplicationContext context;
+
+  private MockMvc mvc;
+
+  @BeforeEach
+  public void setup() {
+    mvc = MockMvcBuilders
+        .webAppContextSetup(context)
+        .apply(springSecurity())
+        .build();
+  }
 
   @AfterEach
   public void tearDown() {
@@ -46,8 +59,9 @@ class PostsApiTest {
   }
 
   @Test
+  @WithMockUser(roles = "USER")
   @DisplayName("Posts 저장")
-  void savePost() {
+  void savePost() throws Exception {
     String title = "title";
     String content = "content";
 
@@ -59,10 +73,11 @@ class PostsApiTest {
 
     String url = "http://localhost:" + port + "/api/posts";
 
-    ResponseEntity<Long> responseEntity = restTemplate.postForEntity(url, requestDto, Long.class);
-
-    assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
-    assertThat(responseEntity.getBody()).isPositive();
+    //when
+    mvc.perform(post(url)
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(new ObjectMapper().writeValueAsString(requestDto)))
+        .andExpect(status().isOk());
 
     List<Posts> all = postRepository.findAll();
     assertThat(all.get(0).getTitle()).isEqualTo(title);
@@ -70,8 +85,9 @@ class PostsApiTest {
   }
 
   @Test
+  @WithMockUser(roles = "USER")
   @DisplayName("JPA 영속성 컨텍스트를 이용한 Posts 갱신")
-  void updatePost() {
+  void updatePost() throws Exception {
     //given
     Posts savedPost = postRepository.save(Posts.builder()
         .title("title")
@@ -90,16 +106,13 @@ class PostsApiTest {
 
     String url = "http://localhost:" + port + "/api/posts/" + updateId;
 
-    HttpEntity<PostsUpdateRequestDto> requestEntity = new HttpEntity<>(requestDto);
-
     //when
-    ResponseEntity<Long> responseEntity = restTemplate.exchange(url, HttpMethod.PATCH,
-        requestEntity, Long.class);
+    mvc.perform(patch(url)
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(new ObjectMapper().writeValueAsString(requestDto)))
+        .andExpect(status().isOk());
 
     //then
-    assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
-    assertThat(responseEntity.getBody()).isPositive();
-
     List<Posts> all = postRepository.findAll();
     assertThat(all.get(0).getTitle()).isEqualTo(expectedTitle);
     assertThat(all.get(0).getContent()).isEqualTo(expectedContent);

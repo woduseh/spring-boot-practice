@@ -5,6 +5,32 @@ logging:
         jdbc:
           core: info
 
+# MySQL
+#spring:
+#  profiles:
+#    include: oauth
+#  devtools:
+#    restart:
+#      enabled: true
+#    livereload:
+#      enabled: true
+#  jpa:
+#    hibernate:
+#      ddl-auto: update
+#    properties:
+#      hibernate:
+#        show-sql: true
+#        format_sql: true
+#        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+#  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://localhost:3306/spring_boot_practice?serverTimezone=UTC&useSSL=false&characterEncoding=utf8&characterSetResults=utf8&rewriteBatchedStatements=true
+#    username: root
+#    password: orcl
+#  session:
+#    store-type: jdbc
+
+# H2
 spring:
   profiles:
     include: oauth
@@ -13,31 +39,19 @@ spring:
       enabled: true
     livereload:
       enabled: true
+  h2:
+    console:
+      enabled: true
   jpa:
-    hibernate:
-      ddl-auto: update
+    show-sql: true
     properties:
       hibernate:
-        show-sql: true
-        format_sql: true
-        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        dialect: org.hibernate.dialect.MySQL8Dialect
+    database-platform: org.hibernate.dialect.H2Dialect
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/spring_boot_practice?serverTimezone=UTC&useSSL=false&characterEncoding=utf8&characterSetResults=utf8&rewriteBatchedStatements=true
-    username: root
-    password: orcl
+    url: jdbc:h2:mem:testdb;MODE=MYSQL
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
   session:
     store-type: jdbc
-
-#spring:
-#  h2:
-#    console:
-#      enabled: true
-#  jpa:
-#    show-sql: true
-#    properties:
-#      hibernate:
-#        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
-#  datasource:
-#    hikari:
-#      jdbc-url: jdbc:h2:mem://localhost/~/testdb;MODE=MYSQL
