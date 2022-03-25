@@ -59,6 +59,6 @@ dependencies {
     implementation('org.springframework.boot:spring-boot-starter-mustache:2.6.4')
 
     /* Maria DB */
-    implementation('org.maridb.jdbc:mariadb-java-client')
+    implementation('org.mariadb.jdbc:mariadb-java-client:3.0.3')
 
 }
