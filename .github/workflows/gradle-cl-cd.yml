@@ -14,6 +14,7 @@ jobs:
   build:
     # Runner 실행 환경: 우분투
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -32,6 +33,9 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
+
+    needs: build
+
     steps:
       - name: Make Dir
         run: mkdir -p deploy
