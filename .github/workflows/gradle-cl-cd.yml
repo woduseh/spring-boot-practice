@@ -31,6 +31,10 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew build
 
+      - name: Make zip file
+        run: zip -r ./spring-boot-practice.zip .
+        shell: bash
+
   deploy:
     runs-on: ubuntu-latest
 
@@ -45,10 +49,6 @@ jobs:
 
       - name: Copy appspec.yml
         run: cp ../../appspec.yml ./deploy
-
-      - name: Make zip file
-        run: zip -r ./spring-boot-practice.zip .
-        shell: bash
 
       - name: AWS Setting
         uses: aws-actions/configure-aws-credentials@v1
