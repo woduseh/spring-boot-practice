@@ -9,6 +9,7 @@ on:
 
 env:
   S3_BUCKET_NAME: spring-boot-practice-build
+  PROJECT_BUILD_NAME: spring-boot-practice.zip
 
 jobs:
   build:
@@ -44,7 +45,7 @@ jobs:
         run: cp ./scripts/*.sh ./deploy
 
       - name: Make zip file
-        run: zip -r ./spring-boot-practice.zip ./deploy
+        run: zip -r ./$PROJECT_BUILD_NAME ./deploy
         shell: bash
 
       - name: AWS Setting
@@ -55,11 +56,11 @@ jobs:
           aws-region: ap-northeast-2
 
       - name: Upload to S3
-        run: aws s3 cp --region ap-northeast-2 ./spring-boot-practice.zip s3://$S3_BUCKET_NAME/spring-boot-practice.zip
+        run: aws s3 cp --region ap-northeast-2 ./$PROJECT_BUILD_NAME s3://$S3_BUCKET_NAME/
 
       - name: Deploy
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
-        run: aws deploy create-deployment --application-name spring-boot-practice-deploy --deployment-config-name CodeDeployDefault.AllAtOnce --deployment-group-name dev --s3-location bucket=spring-boot-practice-build,key=spring-boot-practice.zip,bundleType=zip
+        run: aws deploy create-deployment --application-name spring-boot-practice-deploy --deployment-group-name dev --s3-location bucket=$S3_BUCKET_NAME,key=$PROJECT_BUILD_NAME,bundleType=zip
