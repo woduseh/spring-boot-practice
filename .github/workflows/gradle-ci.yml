@@ -7,6 +7,9 @@ on:
   pull_request:
     branches: [ master ]
 
+env:
+  S3_BUCKET_NAME: spring-boot-practice-build
+
 jobs:
   build:
 
@@ -40,4 +43,5 @@ jobs:
           aws-region: ap-northeast-2
 
       - name: Upload to S3
-        run: aws //spring-boot-practice-build/$GITHUB_SHA.zip cp --region ap-northeast-2 ./$GITHUB_SHA.zip
+        run: aws s3 cp --region ap-northeast-2 ./$GITHUB_SHA.zip
+        s3://$S3_BUCKET_NAME/$GITHUB_SHA.zip
