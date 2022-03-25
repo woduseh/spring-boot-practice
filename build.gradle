@@ -64,5 +64,4 @@ dependencies {
 
     /* Maria DB */
     implementation('org.mariadb.jdbc:mariadb-java-client:3.0.3')
-
 }
