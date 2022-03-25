@@ -33,8 +33,14 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
+      - name: Make Dir
+        run: mkdir -p deploy
+
+      - name: Move Jar File
+        run: mv spring-boot-practice.zip deploy/spring-boot-practice.zip
+
       - name: Copy appspec.yml
-        run: cp appspec.yml ./deploy
+        run: cp ../../appspec.yml ./deploy
 
       - name: Make zip file
         run: zip -r ./spring-boot-practice.zip .
