@@ -44,3 +44,11 @@ jobs:
 
       - name: Upload to S3
         run: aws s3 cp --region ap-northeast-2 ./spring-boot-practice.zip s3://$S3_BUCKET_NAME/spring-boot-practice.zip
+
+  - aws-code-deploy/deploy-bundle:
+      application-name: spring-boot-practice
+      deployment-group: dev
+      deployment-config: CodeDeployDefault.AllAtOnce
+      bundle-bucket: spring-boot-practice-build
+      bundle-key: spring-boot-practice
+      bundle-type: zip
