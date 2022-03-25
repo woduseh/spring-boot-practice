@@ -12,13 +12,12 @@ env:
 
 jobs:
   build:
-
     # Runner 실행 환경: 우분투
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+
       - name: Set up JDK 11
         uses: actions/setup-java@v2
         with:
@@ -30,6 +29,12 @@ jobs:
 
       - name: Build with Gradle
         run: ./gradlew build
+
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Copy appspec.yml
+        run: cp appspec.yml ./deploy
 
       - name: Make zip file
         run: zip -r ./spring-boot-practice.zip .
@@ -45,10 +50,9 @@ jobs:
       - name: Upload to S3
         run: aws s3 cp --region ap-northeast-2 ./spring-boot-practice.zip s3://$S3_BUCKET_NAME/spring-boot-practice.zip
 
-  - aws-code-deploy/deploy-bundle:
-      application-name: spring-boot-practice
-      deployment-group: dev
-      deployment-config: CodeDeployDefault.AllAtOnce
-      bundle-bucket: spring-boot-practice-build
-      bundle-key: spring-boot-practice
-      bundle-type: zip
+      - name: Deploy
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+        run: aws deploy create-deployment --application-name spring-boot-practice --deployment-config-name CodeDeployDefault.AllAtOnce --deployment-group-name dev --s3-location bucket=spring-boot-practice-build,key=smart-mirror/spring-boot-practice.zip,bundleType=zip
