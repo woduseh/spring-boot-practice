@@ -57,4 +57,8 @@ dependencies {
 
     /* Mustache */
     implementation('org.springframework.boot:spring-boot-starter-mustache:2.6.4')
+
+    /* Maria DB */
+    implementation('org.maridb.jdbc:mariadb-java-client')
+
 }
