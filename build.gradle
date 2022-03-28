@@ -62,6 +62,10 @@ dependencies {
     /* Mustache */
     implementation('org.springframework.boot:spring-boot-starter-mustache:2.6.4')
 
+    //thymeleaf
+    implementation('org.springframework.boot:spring-boot-starter-thymeleaf:2.6.5')
+    implementation('nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:3.1.0')
+
     /* Maria DB */
     implementation('org.mariadb.jdbc:mariadb-java-client:3.0.3')
 }
