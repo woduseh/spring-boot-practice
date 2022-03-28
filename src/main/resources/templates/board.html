@@ -36,7 +36,7 @@
       <tr th:each="post : ${posts}">
         <td th:text="${post.id}"></td>
         <td th:if="${loginUserName == post.author}">
-          <a href="/posts/update/${post.id}" th:text="${post.title}"></a>
+          <a th:href="@{/posts/update/{id}(id = ${post.id})}" th:text="${post.title}"></a>
         </td>
         <td th:unless="${loginUserName == post.author}" th:text="${post.title}"></td>
         <td th:text="${post.author}"></td>
