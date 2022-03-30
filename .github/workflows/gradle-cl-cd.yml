@@ -44,6 +44,9 @@ jobs:
       - name: Copy script
         run: cp ./scripts/*.sh ./deploy
 
+      - name: Copy yml
+        run: cp ./src/resources/*real*.yml ../../
+
       - name: Make zip file
         run: zip -r ./$PROJECT_BUILD_NAME ./deploy
         shell: bash
