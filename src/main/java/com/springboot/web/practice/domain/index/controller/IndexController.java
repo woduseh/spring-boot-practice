@@ -4,7 +4,6 @@ import com.springboot.web.practice.config.auth.LoginUser;
 import com.springboot.web.practice.config.auth.dto.SessionUser;
 import com.springboot.web.practice.domain.post.dto.response.PostsResponseDto;
 import com.springboot.web.practice.domain.post.service.PostsService;
-import javax.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +18,6 @@ public class IndexController {
 
   private static final Logger log = LoggerFactory.getLogger(IndexController.class);
   private final PostsService postsService;
-  private final HttpSession httpSession;
 
   @GetMapping("/")
   public String index(Model model, @LoginUser SessionUser user) {
