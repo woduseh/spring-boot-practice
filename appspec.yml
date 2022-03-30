@@ -1,8 +1,9 @@
+# Step 2 #
 #version: 0.0
 #os: linux
 #files:
 #  - source: /
-#    destination: /home/ec2-user/app/step3/zip/
+#    destination: /home/ec2-user/app/step2/zip/
 #    overwrite: yes
 #
 #permissions:
@@ -17,6 +18,7 @@
 #      timeout: 60
 #      runas: ec2-user
 
+# Step 3 #
 version: 0.0
 os: linux
 files:
