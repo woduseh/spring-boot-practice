@@ -5,5 +5,12 @@ build
 gradle
 out
 
+# node modules
+frontend/node_modules
+
+# vue build output
+src/main/resources/static/*
+src/main/resources/templates/vue.html
+
 # OAuth properties
 application-oauth.yml
