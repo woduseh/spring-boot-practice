@@ -1,13 +1,16 @@
 <template xmlns:v-slot="http://www.w3.org/1999/html">
   <v-parallax
       dark
-      src="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg"
+      src="https://picsum.photos/1920/1080?random"
   >
-    <v-card max-width="448" class="mx-auto" color="grey-lighten-3">
+    <v-card
+        max-width="448"
+        class="mx-auto"
+        color="grey-lighten-3"
+    >
       <v-layout>
         <v-app-bar
             color="teal-darken-4"
-            image="https://picsum.photos/1920/1080?random"
         >
           <template v-slot:image>
             <v-img
@@ -15,23 +18,15 @@
             ></v-img>
           </template>
 
+          <v-app-bar-title>Spring Boot + Vue 3</v-app-bar-title>
 
-          <v-app-bar-title>Title</v-app-bar-title>
-
-          <v-spacer></v-spacer>
-
-          <v-slot:template>
-            <v-btn
-                variant="outlined"
-                elevation="2"
-                icon
-            >
-              <v-icon
-                  onclick=""
-              >mdi-pencil
-              </v-icon>
-            </v-btn>
-          </v-slot:template>
+          <v-btn
+              variant="outlined"
+              elevation="2"
+              onclick="console.log(123)"
+          >
+            <v-icon>mdi-plus</v-icon>
+          </v-btn>
 
         </v-app-bar>
 
@@ -43,11 +38,42 @@
                   :key="n"
                   cols="12"
               >
-                <v-card
-                    :title="`Content ${n}`"
-                    :subtitle="`Subtitle for Content ${n}`"
-                    text="Lorem ipsum dolor sit amet consectetur, adipisicing elit.?"
-                ></v-card>
+                <v-hover v-slot="{ isHovering, props }">
+                  <v-card
+                      :elevation="isHovering ? 16 : 2"
+                      :class="{ 'on-hover': isHovering }"
+                      :to="{ path: '/'}"
+                      v-bind="props"
+                  >
+                    <v-card-title
+                        v-text="`제목 ${n}`"
+                    >
+                    </v-card-title>
+                    <v-card-subtitle
+                        v-text="`글쓴이 ${n}`"
+                    >
+                    </v-card-subtitle>
+                    <v-card-text>
+                      Lorem ipsum dolor sit amet consectetur, adipisicing elit.?
+                    </v-card-text>
+                    <v-card-actions>
+                      <v-btn
+                          variant="outlined"
+                          rounded
+                          text
+                      >
+                        <v-icon>mdi-pencil</v-icon>
+                      </v-btn>
+                      <v-btn
+                          variant="outlined"
+                          rounded
+                          text
+                      >
+                        <v-icon>mdi-delete</v-icon>
+                      </v-btn>
+                    </v-card-actions>
+                  </v-card>
+                </v-hover>
               </v-col>
             </v-row>
           </v-container>
