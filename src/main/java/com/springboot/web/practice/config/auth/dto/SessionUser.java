@@ -4,22 +4,6 @@ import com.springboot.web.practice.domain.user.entity.User;
 import java.io.Serializable;
 import lombok.Getter;
 
-/**
- * <pre>
- * packageName      : com.springboot.web.practice.config.auth.dto
- * fileName         : SessionUser
- * author           : JYHwang
- * date             : 2022-03-22
- * description      : User Entity의 직렬화용 DTO
- * </pre>
- * ===========================================================
- * <pre>
- * DATE                 AUTHOR                  NOTE
- * -----------------------------------------------------
- * 2022-03-22           JYHwang                 최초 생성
- * </pre>
- */
-
 @Getter
 public class SessionUser implements Serializable {
 

@@ -16,23 +16,6 @@ import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
-/**
- * <pre>
- * packageName      : com.springboot.web.practice.config.auth
- * fileName         : CustomOAuth2UserService
- * author           : JYHwang
- * date             : 2022-03-22
- * description      : OAuth2
- * </pre>
- * ===========================================================
- * <pre>
- * DATE                 AUTHOR                  NOTE
- * -----------------------------------------------------
- * 2022-03-22           JYHwang                 최초 생성
- * </pre>
- */
-
-
 @RequiredArgsConstructor
 @Service
 public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {

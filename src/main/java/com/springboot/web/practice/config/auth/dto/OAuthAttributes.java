@@ -6,23 +6,6 @@ import java.util.Map;
 import lombok.Builder;
 import lombok.Getter;
 
-/**
- * <pre>
- * packageName      : com.springboot.web.practice.config.auth.dto
- * fileName         : OAuthAttributes
- * author           : JYHwang
- * date             : 2022-03-22
- * description      : OAuthAttributes
- * </pre>
- * ===========================================================
- * <pre>
- * DATE                 AUTHOR                  NOTE
- * -----------------------------------------------------
- * 2022-03-22           JYHwang                 최초 생성
- * 2022-03-23           JYHwang                 네이버 로그인 추가
- * </pre>
- */
-
 @Getter
 public class OAuthAttributes {
   private final Map<String, Object> attributes;

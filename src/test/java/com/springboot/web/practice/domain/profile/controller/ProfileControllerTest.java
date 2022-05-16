@@ -14,22 +14,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-/**
- * <pre>
- * packageName      : com.springboot.web.practice.domain.profile.controller
- * fileName         : ProfileControllerTest
- * author           : JYHwang
- * date             : 2022-03-30
- * description      :
- * </pre>
- * ===========================================================
- * <pre>
- * DATE                 AUTHOR                  NOTE
- * -----------------------------------------------------
- * 2022-03-30           JYHwang                 최초 생성
- * </pre>
- */
-
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 class ProfileControllerTest {

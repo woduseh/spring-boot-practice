@@ -10,23 +10,6 @@ import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
-
-/**
- * <pre>
- * packageName      : com.springboot.web.practice.config.auth
- * fileName         : LoginUserArgumentResolver
- * author           : JYHwang
- * date             : 2022-03-22
- * description      : httpSession.getAttribute("user") 라는 반복되는 코드를 파라미터로 넘기도록 하는 코드
- * </pre>
- * ===========================================================
- * <pre>
- * DATE                 AUTHOR                  NOTE
- * -----------------------------------------------------
- * 2022-03-22           JYHwang                 최초 생성
- * </pre>
- */
-
 @RequiredArgsConstructor
 @Component
 public class LoginUserArgumentResolver implements HandlerMethodArgumentResolver {

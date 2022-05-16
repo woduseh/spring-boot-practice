@@ -12,22 +12,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-/**
- * <pre>
- * packageName      : com.springboot.web.practice.domain.user
- * fileName         : User
- * author           : JYHwang
- * date             : 2022-03-22
- * description      : 로그인한 사용자를 관리하기 위한 Entity
- * </pre>
- * ===========================================================
- * <pre>
- * DATE                 AUTHOR                  NOTE
- * -----------------------------------------------------
- * 2022-03-22           JYHwang                 최초 생성
- * </pre>
- */
-
 @Getter
 @NoArgsConstructor
 @Entity

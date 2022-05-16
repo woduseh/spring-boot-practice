@@ -6,24 +6,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.mock.env.MockEnvironment;
 
-
-/**
- * <pre>
- * packageName      : com.springboot.web.practice.domain.profile.controller
- * fileName         : ProfileControllerUnitTest
- * author           : JYHwang
- * date             : 2022-03-30
- * description      :
- * </pre>
- * ===========================================================
- * <pre>
- * DATE                 AUTHOR                  NOTE
- * -----------------------------------------------------
- * 2022-03-30           JYHwang                 최초 생성
- * </pre>
- */
-
-
 class ProfileControllerUnitTest {
 
   @Test

@@ -9,22 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-/**
- * <pre>
- * packageName      : com.springboot.web.practice.domain.home
- * fileName         : BoardController
- * author           : JYHwang
- * date             : 2022-03-28
- * description      :
- * </pre>
- * ===========================================================
- * <pre>
- * DATE                 AUTHOR                  NOTE
- * -----------------------------------------------------
- * 2022-03-28           JYHwang                 최초 생성
- * </pre>
- */
-
 @RequiredArgsConstructor
 @Controller
 @RequestMapping(value = "/board")
