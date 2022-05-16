@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        springBootVersion = '2.6.4'
+        springBootVersion = '2.6.7'
     }
     repositories {
         mavenCentral()
@@ -17,7 +17,7 @@ apply plugin: 'io.spring.dependency-management'
 
 group 'com.springboot.web.pratice'
 version '1.0.1-SNAPSHOT-' + new Date().format("yyyyMMddHHmmss")
-sourceCompatibility = 1.8
+sourceCompatibility = 17
 
 repositories {
     mavenCentral()
@@ -29,43 +29,48 @@ tasks.jar {
 
 dependencies {
     /* Spring Boot */
-    implementation('org.springframework.boot:spring-boot-starter-web:2.6.5')
-    testImplementation('org.springframework.boot:spring-boot-starter-test:2.6.5')
+    implementation('org.springframework.boot:spring-boot-starter-web:2.6.7')
+    testImplementation('org.springframework.boot:spring-boot-starter-test:2.6.7')
 
     /* H2 DB */
-    implementation('com.h2database:h2:2.1.210')
-    implementation('org.springframework.boot:spring-boot-starter-jdbc:2.6.5')
+    implementation('com.h2database:h2:2.1.212')
+    implementation('org.springframework.boot:spring-boot-starter-jdbc:2.6.7')
 
     /* lombok */
-    annotationProcessor('org.projectlombok:lombok:1.18.22')
-    compileOnly('org.projectlombok:lombok:1.18.22')
+    annotationProcessor('org.projectlombok:lombok:1.18.24')
+    compileOnly('org.projectlombok:lombok:1.18.24')
 
     /* Spring Data JPA */
-    implementation('mysql:mysql-connector-java:8.0.28')
-    implementation('org.springframework.boot:spring-boot-starter-data-jpa:2.6.5')
+    implementation('mysql:mysql-connector-java:8.0.29')
+    implementation('org.springframework.boot:spring-boot-starter-data-jpa:2.6.7')
 
     /* OAuth 2.0 */
-    implementation('org.springframework.boot:spring-boot-starter-oauth2-client:2.6.5')
+    implementation('org.springframework.boot:spring-boot-starter-oauth2-client:2.6.7')
 
     /* spring-session-jdbc */
-    implementation('org.springframework.session:spring-session-jdbc:2.6.2')
+    implementation('org.springframework.session:spring-session-jdbc:2.6.3')
 
     /* Spring Boot Devtools */
-    implementation('org.springframework.boot:spring-boot-devtools:2.6.5')
+    implementation('org.springframework.boot:spring-boot-devtools:2.6.7')
 
     /* Spring Security Test */
-    testImplementation('org.springframework.security:spring-security-test:5.6.2')
+    testImplementation('org.springframework.security:spring-security-test:5.6.3')
 
     /* Apache HttpClient */
     implementation('org.apache.httpcomponents:httpclient:4.5.13')
 
     /* Mustache */
-    implementation('org.springframework.boot:spring-boot-starter-mustache:2.6.5')
+    implementation('org.springframework.boot:spring-boot-starter-mustache:2.6.7')
 
     //thymeleaf
-    implementation('org.springframework.boot:spring-boot-starter-thymeleaf:2.6.5')
+    implementation('org.springframework.boot:spring-boot-starter-thymeleaf:2.6.7')
     implementation('nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:3.1.0')
 
     /* Maria DB */
-    implementation('org.mariadb.jdbc:mariadb-java-client:3.0.3')
+    implementation('org.mariadb.jdbc:mariadb-java-client:3.0.4')
+
+    /* kotlin */
+    implementation('org.jetbrains.kotlin:kotlin-reflect:1.6.21')
+
+    implementation('org.openjdk.nashorn:nashorn-core:15.4')
 }
