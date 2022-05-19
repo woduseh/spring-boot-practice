@@ -38,11 +38,21 @@ public class IndexController {
     return "posts-save";
   }
 
+  // 수정방안 - PostsResponseDto 의 Author가 현재 로그인한 User와 일치할 경우 업데이트, 아니면 view 출력
+  // 혹은 그냥 전부 view 출력하고 수정하기 버튼을 누르면 권한 체크 후 update로 이동
   @GetMapping("/posts/update/{id}")
   public String postsUpdate(@PathVariable Long id, Model model) {
     PostsResponseDto postsResponseDto = postsService.findById(id);
     model.addAttribute("post", postsResponseDto);
 
     return "posts-update";
+  }
+
+  @GetMapping("/posts/view/{id}")
+  public String postsView(@PathVariable Long id, Model model) {
+    PostsResponseDto postsResponseDto = postsService.findById(id);
+    model.addAttribute("post", postsResponseDto);
+
+    return "posts-view";
   }
 }
