@@ -35,7 +35,7 @@ public class IndexController {
     if (user != null) {
       model.addAttribute("loginUserName", user.getName());
     }
-    return "posts-save";
+    return "posts/posts-save";
   }
 
   // 수정방안 - PostsResponseDto 의 Author가 현재 로그인한 User와 일치할 경우 업데이트, 아니면 view 출력
@@ -45,7 +45,7 @@ public class IndexController {
     PostsResponseDto postsResponseDto = postsService.findById(id);
     model.addAttribute("post", postsResponseDto);
 
-    return "posts-update";
+    return "posts/posts-update";
   }
 
   @GetMapping("/posts/view/{id}")
@@ -53,6 +53,6 @@ public class IndexController {
     PostsResponseDto postsResponseDto = postsService.findById(id);
     model.addAttribute("post", postsResponseDto);
 
-    return "posts-view";
+    return "posts/posts-view";
   }
 }

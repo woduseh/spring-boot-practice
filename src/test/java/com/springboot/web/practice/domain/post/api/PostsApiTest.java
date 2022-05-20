@@ -7,10 +7,14 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.springboot.web.practice.config.auth.dto.SessionUser;
 import com.springboot.web.practice.domain.post.dao.PostsRepository;
 import com.springboot.web.practice.domain.post.dto.request.PostsUpdateRequestDto;
 import com.springboot.web.practice.domain.post.dto.response.PostsSaveRequestDto;
 import com.springboot.web.practice.domain.post.entity.Posts;
+import com.springboot.web.practice.domain.user.dao.UserRepository;
+import com.springboot.web.practice.domain.user.entity.Role;
+import com.springboot.web.practice.domain.user.entity.User;
 import java.time.LocalDateTime;
 import java.util.List;
 import org.junit.jupiter.api.AfterEach;
@@ -23,6 +27,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockHttpSession;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
@@ -36,14 +41,14 @@ class PostsApiTest {
 
   @LocalServerPort
   private int port;
-
   @Autowired
   private PostsRepository postRepository;
-
+  @Autowired
+  private UserRepository userRepository;
   @Autowired
   private WebApplicationContext context;
-
   private MockMvc mvc;
+  protected MockHttpSession session;
 
   @BeforeEach
   public void setup() {
@@ -51,6 +56,15 @@ class PostsApiTest {
         .webAppContextSetup(context)
         .apply(springSecurity())
         .build();
+
+    User user = userRepository.save(User.builder()
+        .name("JY")
+        .email("jy@gmail.com")
+        .role(Role.USER)
+        .build());
+
+    session = new MockHttpSession();
+    session.setAttribute("user", new SessionUser(user));
   }
 
   @AfterEach
@@ -68,13 +82,13 @@ class PostsApiTest {
     PostsSaveRequestDto requestDto = PostsSaveRequestDto.builder()
         .title(title)
         .content(content)
-        .author("Yeon")
         .build();
 
     String url = "http://localhost:" + port + "/api/posts";
 
     //when
     mvc.perform(post(url)
+            .session(session)
             .contentType(MediaType.APPLICATION_JSON)
             .content(new ObjectMapper().writeValueAsString(requestDto)))
         .andExpect(status().isOk());
@@ -89,10 +103,16 @@ class PostsApiTest {
   @DisplayName("JPA 영속성 컨텍스트를 이용한 Posts 갱신")
   void updatePost() throws Exception {
     //given
+    User user = userRepository.save(User.builder()
+        .name("JY")
+        .email("jy@gmail.com")
+        .role(Role.USER)
+        .build());
+
     Posts savedPost = postRepository.save(Posts.builder()
         .title("title")
         .content("content")
-        .author("author")
+        .author(user)
         .build());
 
     Long updateId = savedPost.getId();
@@ -123,10 +143,17 @@ class PostsApiTest {
   void checkBaseTimeEntity() {
     //given
     LocalDateTime now = LocalDateTime.of(2019, 6, 4, 0, 0, 0);
+
+    User user = userRepository.save(User.builder()
+        .name("JY")
+        .email("jy@gmail.com")
+        .role(Role.USER)
+        .build());
+
     postRepository.save(Posts.builder()
         .title("title")
         .content("content")
-        .author("author")
+        .author(user)
         .build());
     //when
     List<Posts> postsList = postRepository.findAll();

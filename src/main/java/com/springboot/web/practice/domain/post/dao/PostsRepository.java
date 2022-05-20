@@ -1,12 +1,8 @@
 package com.springboot.web.practice.domain.post.dao;
 
-import com.springboot.web.practice.domain.post.entity.Posts;
-import java.util.List;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
-public interface PostsRepository extends JpaRepository<Posts, Long> {
+@Repository
+public interface PostsRepository extends PostsJpaRepository, PostsCustomRepository {
 
-  @Query("SELECT p FROM Posts p ORDER BY p.id DESC")
-  List<Posts> findAllDesc();
 }

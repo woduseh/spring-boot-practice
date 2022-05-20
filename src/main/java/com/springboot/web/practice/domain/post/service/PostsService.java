@@ -53,7 +53,6 @@ public class PostsService {
 
   @Transactional(timeout = 10)
   public List<PostsListResponseDto> findAllDesc() {
-
     return postsRepository.findAllDesc().stream()
         .map(PostsListResponseDto::new)
         .collect(Collectors.toList());

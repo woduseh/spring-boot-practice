@@ -1,11 +1,15 @@
 package com.springboot.web.practice.domain.post.entity;
 
+import com.springboot.web.practice.domain.user.entity.User;
 import com.springboot.web.practice.global.common.BaseTimeEntity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import lombok.Builder;
 import lombok.Getter;
@@ -28,11 +32,12 @@ public class Posts extends BaseTimeEntity {
   @Column(name = "content", columnDefinition = "TEXT", nullable = false)
   private String content;
 
-  @Column(name = "author")
-  private String author;
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "user_id")
+  private User author;
 
   @Builder
-  public Posts(String title, String content, String author) {
+  public Posts(String title, String content, User author) {
     this.title = title;
     this.content = content;
     this.author = author;
