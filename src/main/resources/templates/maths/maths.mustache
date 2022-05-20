@@ -1,0 +1,37 @@
+{{>layout/header}}
+
+<h1>내 수식 채점 기록</h1>
+<div class="col-md-12">
+  <div class="row">
+    <div class="col-md-6">
+      Logged in as: <span id="user">{{loginUserName}}</span>
+      <br>
+      <a href="/" role="button" class="btn btn-primary">게시판</a>
+      <a href="/maths/save" class="btn btn-success active" role="button">수식 채점하기</a>
+    </div>
+  </div>
+  <br>
+  <!-- 목록 출력 영역 -->
+  <table class="table table-horizontal table-bordered">
+    <thead class="thead-strong">
+    <tr>
+      <th>채점 번호</th>
+      <th>수식</th>
+      <th>올바른 정답</th>
+      <th>생성일</th>
+    </tr>
+    </thead>
+    <tbody id="tbody">
+    {{#maths}}
+      <tr>
+        <td>{{id}}</td>
+        <td>{{expression}}</a></td>
+        <td>{{correctAnswer}}</td>
+        <td>{{createdDate}}</td>
+      </tr>
+    {{/maths}}
+    </tbody>
+  </table>
+</div>
+
+{{>layout/footer}}

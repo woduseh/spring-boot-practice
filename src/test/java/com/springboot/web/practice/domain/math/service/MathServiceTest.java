@@ -3,7 +3,7 @@ package com.springboot.web.practice.domain.math.service;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import com.springboot.web.practice.domain.math.dao.MathRepository;
+import com.springboot.web.practice.domain.math.dao.MathJpaRepository;
 import com.springboot.web.practice.domain.math.utils.EvalUtil;
 import javax.script.ScriptException;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,7 +17,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 class MathServiceTest {
 
   @Mock
-  private MathRepository mathRepository;
+  private MathJpaRepository mathRepository;
   private MathService mathService;
   private final EvalUtil evalUtil = new EvalUtil();
 

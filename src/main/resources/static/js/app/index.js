@@ -1,17 +1,3 @@
-/**
- * <pre>
- * author           : JYHwang
- * date             : 2022-03-21
- * description      :
- * </pre>
- * ===========================================================
- * <pre>
- * DATE                 AUTHOR                  NOTE
- * -----------------------------------------------------
- * 2022-03-21           JYHwang                 최초 생성
- * </pre>
- */
-
 let main = {
   init: function () {
     let _this = this;
@@ -26,11 +12,15 @@ let main = {
     $('#btn-delete').on('click', function () {
       _this.delete();
     });
+
+    $('#btn-check-math').on('click', function () {
+      _this.checkMath();
+    });
   },
+
   save: function () {
     let data = {
       title: $('#title').val(),
-      author: $('#author').val(),
       content: $('#content').val()
     };
 
@@ -47,6 +37,7 @@ let main = {
       alert(JSON.stringify(error));
     });
   },
+
   update: function () {
     let data = {
       title: $('#title').val(),
@@ -68,6 +59,7 @@ let main = {
       alert(JSON.stringify(error));
     });
   },
+
   delete: function () {
     let id = $('#id').val();
 
@@ -82,8 +74,26 @@ let main = {
     }).fail(function (error) {
       alert(JSON.stringify(error));
     });
-  }
+  },
 
+  checkMath: function () {
+    let mathExpression = $('#mathExpression').val()
+
+    $.ajax({
+      type: 'POST',
+      url: '/api/maths/save',
+      dataType: 'json',
+      contentType: 'application/json; charset=utf-8',
+      data: JSON.stringify({
+        expression: mathExpression
+      })
+    }).done(function () {
+      alert('수식이 등록되었습니다.');
+      window.location.href = '/maths';
+    }).fail(function (error) {
+      alert(JSON.stringify(error));
+    });
+  },
 };
 
 main.init();
