@@ -75,7 +75,7 @@ class MathApiTest {
     String expression = "12 + 3 = 14";
     String correctAnswer = "15";
 
-    String url = "http://localhost:" + port + "/api/maths";
+    String url = "http://localhost:" + port + "/api/maths/save";
 
     MathSaveRequestDto requestDto = MathSaveRequestDto.builder()
         .expression(expression)
