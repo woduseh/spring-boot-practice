@@ -10,3 +10,4 @@ application-oauth.yml
 
 # QClass
 generated
+build/generated
