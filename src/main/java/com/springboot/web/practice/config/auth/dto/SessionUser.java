@@ -2,12 +2,15 @@ package com.springboot.web.practice.config.auth.dto;
 
 import com.springboot.web.practice.domain.user.entity.Role;
 import com.springboot.web.practice.domain.user.entity.User;
+import java.io.Serial;
 import java.io.Serializable;
 import lombok.Getter;
 
 @Getter
 public class SessionUser implements Serializable {
 
+  @Serial
+  private static final long serialVersionUID = 7428255314664047836L;
   private final Long id;
   private final String name;
   private final String email;
