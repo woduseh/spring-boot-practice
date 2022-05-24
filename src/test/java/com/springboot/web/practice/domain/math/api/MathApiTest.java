@@ -1,8 +1,11 @@
 package com.springboot.web.practice.domain.math.api;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -28,6 +31,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.TestConstructor;
 import org.springframework.test.context.TestConstructor.AutowireMode;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -95,50 +99,50 @@ class MathApiTest {
     assertThat(all.get(0).getExpression()).isEqualTo(expression);
   }
 
-//  @Test
-//  @DisplayName("특정 id의 채점 히스토리 찾기")
-//  void findHistory() throws Exception {
-//    // given
-//    String url = "http://localhost:" + port + "/api/maths/1";
-//
-//    User user = userRepository.save(User.builder()
-//        .name("JY")
-//        .email("jy@gmail.com")
-//        .role(Role.USER)
-//        .build());
-//
-//    String expressionOne = "1 + 1 = 3";
-//    String correctAnswerOne = "2";
-//
-//    String expressionTwo = "1 + 1 = 2";
-//    String correctAnswerTwo = "";
-//
-//    MathExpression mathExpressionOne = MathExpression.builder()
-//        .expression(expressionOne)
-//        .correctAnswer(correctAnswerOne)
-//        .user(user)
-//        .build();
-//
-//    MathExpression mathExpressionTwo = MathExpression.builder()
-//        .expression(expressionTwo)
-//        .correctAnswer(correctAnswerTwo)
-//        .user(user)
-//        .build();
-//
-//    mathRepository.save(mathExpressionOne);
-//    mathRepository.save(mathExpressionTwo);
-//
-//    // when
-//    RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/api/maths/1")
-//        .contentType(MediaType.APPLICATION_JSON)
-//        .accept(MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN)
-//        .characterEncoding(StandardCharsets.UTF_8.displayName());
-//
-//    // then
-//    MockHttpServletResponse response = mvc.perform(requestBuilder)
-//        .andExpect(MockMvcResultMatchers.status().isOk())
-//        .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
-//        .andReturn()
-//        .getResponse();
-//  }
+  @Test
+  @WithMockUser(roles = "USER")
+  @DisplayName("특정 id의 채점 히스토리 찾기")
+  void findHistory() throws Exception {
+    // given
+    User user = userRepository.save(User.builder()
+        .name("JY")
+        .email("jy@gmail.com")
+        .role(Role.USER)
+        .build());
+
+    Long userId = user.getId();
+    String url = "http://localhost:" + port + "/api/maths/" + userId;
+
+    String expressionOne = "1 + 1 = 3";
+    String correctAnswerOne = "2";
+
+    String expressionTwo = "1 + 1 = 2";
+    String correctAnswerTwo = "";
+
+    MathExpression mathExpressionOne = MathExpression.builder()
+        .expression(expressionOne)
+        .correctAnswer(correctAnswerOne)
+        .user(user)
+        .build();
+
+    MathExpression mathExpressionTwo = MathExpression.builder()
+        .expression(expressionTwo)
+        .correctAnswer(correctAnswerTwo)
+        .user(user)
+        .build();
+
+    mathRepository.save(mathExpressionOne);
+    mathRepository.save(mathExpressionTwo);
+
+    // when
+    MvcResult result = mvc.perform(get(url)
+            .session(session)
+            .contentType(MediaType.APPLICATION_JSON))
+        .andExpect(status().isOk())
+        .andDo(print())
+        .andReturn();
+
+    // then
+    assertTrue(result.getResponse().getContentAsString().contains(expressionOne));
+  }
 }
