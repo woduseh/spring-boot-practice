@@ -7,6 +7,8 @@ import com.springboot.web.practice.domain.post.service.PostsService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,20 +40,28 @@ public class IndexController {
     return "posts/posts-save";
   }
 
-  // 수정방안 - PostsResponseDto 의 Author가 현재 로그인한 User와 일치할 경우 업데이트, 아니면 view 출력
-  // 혹은 그냥 전부 view 출력하고 수정하기 버튼을 누르면 권한 체크 후 update로 이동
   @GetMapping("/posts/update/{id}")
-  public String postsUpdate(@PathVariable Long id, Model model) {
+  public Object postsUpdate(@PathVariable Long id, Model model, @LoginUser SessionUser user) {
     PostsResponseDto postsResponseDto = postsService.findById(id);
-    model.addAttribute("post", postsResponseDto);
 
-    return "posts/posts-update";
+    if (postsResponseDto.getId().equals(user.getId())) {
+      model.addAttribute("post", postsResponseDto);
+
+      return "posts/posts-update";
+    } else {
+      return ResponseEntity
+          .status(HttpStatus.FORBIDDEN)
+          .body("수정 권한이 없습니다!");
+    }
   }
 
   @GetMapping("/posts/view/{id}")
-  public String postsView(@PathVariable Long id, Model model) {
+  public String postsView(@PathVariable Long id, Model model, @LoginUser SessionUser user) {
     PostsResponseDto postsResponseDto = postsService.findById(id);
     model.addAttribute("post", postsResponseDto);
+
+    boolean hasEditAuthority = postsResponseDto.getId().equals(user.getId());
+    model.addAttribute("editAuthority", hasEditAuthority);
 
     return "posts/posts-view";
   }
